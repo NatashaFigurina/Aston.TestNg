@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -12,7 +13,7 @@ import java.time.Duration;
 @Epic("Тесты для веба")
 @Feature("Тесты связанные с проверкой функционала фрейма BePaidFrame")
 public class BePaidFrameTest {
-    WebDriver driver = new ChromeDriver();
+    static WebDriver  driver = new ChromeDriver();
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     PayWrapper pay = new PayWrapper(driver);
 
@@ -26,6 +27,11 @@ public class BePaidFrameTest {
             driver.findElement(By.xpath("//button[@class='btn btn_black cookie__ok']")).click();
         } catch (Exception ignored) {
         }
+    }
+
+    @AfterTest
+    public static void afterTest() {
+        driver.quit();
     }
 
     @Step("Заполнение необходимых полей для открытия фрейма BePaidFrame")
